@@ -20,11 +20,11 @@ Standards-Version: 4.7.0
 Package: gapless
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
+Pre-Depends: g4music (= ${binary:Version}),
 Description: A fast, fluent, light weight music player written in GTK4,
  with a beautiful, adaptive user interface, focuses on high performance.
 
 Package: g4music
 Architecture: any
-Depends: gapless (= ${binary:Version}),
 Description: A fast, fluent, light weight music player written in GTK4,
  with a beautiful, adaptive user interface, focuses on high performance. - this is a transitional package.
