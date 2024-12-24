@@ -14,7 +14,7 @@ namespace G4 {
         protected HashTable<unowned string, Music> _musics = new HashTable<unowned string, Music> (str_hash, str_equal);
 
         public Album (Music music) {
-            base.titled (music.title, music.uri);
+            base.titled (music.album, music.uri);
             base.album = music.album;
             base.artist = music.artist;
             base._album_key = music._album_key;
@@ -33,8 +33,17 @@ namespace G4 {
         public bool add_music (Music music) {
             if (music.has_cover && music.track < track) {
                 // For cover
+                has_cover = true;
                 uri = music.uri;
             }
+#if VALA_56_10
+            return _musics.insert (music.uri, music);
+#else
+            return insert_music (music);
+#endif
+        }
+
+        protected bool insert_music (Music music) {
             var count = _musics.length;
             _musics.insert (music.uri, music);
             return _musics.length > count;
@@ -44,27 +53,23 @@ namespace G4 {
             return _musics.contains (uri);
         }
 
-        public void @foreach (HFunc<unowned string, Music> func) {
-            _musics.foreach (func);
+        public uint foreach_remove (HRFunc<unowned string, Music> func) {
+            return _musics.foreach_remove (func);
         }
 
-        public uint foreach_steal (HRFunc<unowned string, Music> func) {
-            return _musics.foreach_steal (func);
+        public virtual void get_sorted_musics (GenericArray<Music> musics) {
+            _musics.foreach ((name, music) => musics.add (music));
+            sort (musics);
         }
 
-        public void get_sorted_items (GenericArray<Music> arr) {
-            _musics.foreach ((name, music) => arr.add (music));
-            sort (arr);
-        }
-
-        public void insert_to_store (ListStore store, uint insert_pos = 0) {
-            var arr = new GenericArray<Music> (_musics.length);
-            get_sorted_items (arr);
-            store.splice (insert_pos, 0, (Object[]) arr.data);
+        public void overwrite_to (ListStore store) {
+            var musics = new GenericArray<Music> (_musics.length);
+            get_sorted_musics (musics);
+            store.splice (0, store.get_n_items (), (Object[]) musics.data);
         }
 
         public bool remove_music (Music music) {
-            return _musics.steal (music.uri);
+            return _musics.remove (music.uri);
         }
 
         protected virtual void sort (GenericArray<Music> arr) {
@@ -73,19 +78,15 @@ namespace G4 {
     }
 
     public class Artist : Music {
-        public string name;
         protected HashTable<unowned string, Album> _albums = new HashTable<unowned string, Album> (str_hash, str_equal);
 
         public Artist (Music music, string artist_name) {
-            base.titled (music.title, music.uri);
-            base.album = music.album;
-            base.artist = music.artist;
+            base.titled (artist_name, music.uri);
+            base.artist = artist_name;
             base.album_artist = music.album_artist;
-            base._album_key = music._album_key;
             base._artist_key = artist_name.collate_key_for_filename ();
             base.date = music.date;
             base.uri = music.uri;
-            name = artist_name;
         }
 
         public uint length {
@@ -95,43 +96,46 @@ namespace G4 {
         }
 
         public override string get_abbreviation () {
-            return parse_abbreviation (name);
+            return parse_abbreviation (artist);
         }
 
         public bool add_music (Music music) {
-            if (music.has_cover && compare_album (music, this) < 0) {
-                // For cover
-                uri = music.uri;
-            }
             unowned string key;
             unowned var album_key = music.album_key;
             Album album;
             if (!_albums.lookup_extended (album_key, out key, out album)) {
                 album = new Album (music);
-                album.album_artist = name;
+                album.album_artist = artist;
                 _albums[album_key] = album;
             }
-            return album.add_music (music);
+            var added = album.add_music (music);
+            if (added && album.has_cover && !has_cover) {
+                has_cover = true;
+                uri = album.uri;
+            }
+            return added;
         }
 
         public Album? find_by_partial_artist (string artist) {
             return _albums.find ((name, album) => artist.match_string (album.artist, true)) as Album;
         }
 
-        public void @foreach (HFunc<unowned string, Album> func) {
-            _albums.foreach (func);
-        }
-
         public new Album? @get (string name) {
             return _albums[name];
         }
 
-        public void get_sorted_albums (GenericArray<Album> items) {
-            _albums.foreach ((name, album) => items.add (album));
-            items.sort (compare_album);
+        public void get_sorted_albums (GenericArray<Album> albums) {
+            _albums.foreach ((name, album) => albums.add (album));
+            albums.sort (compare_album);
         }
 
-        public void replace_to_store (ListStore store) {
+        public void get_sorted_musics (GenericArray<Music> musics) {
+            var arr = new GenericArray<Album> (_albums.length);
+            get_sorted_albums (arr);
+            arr.foreach ((album) => album.get_sorted_musics (musics));
+        }
+
+        public void overwrite_store (ListStore store) {
             var arr = new GenericArray<Album> (_albums.length);
             get_sorted_albums (arr);
             store.splice (0, store.get_n_items (), (Object[]) arr.data);
@@ -146,19 +150,14 @@ namespace G4 {
                     _albums.remove (album_key);
                 return ret;
             }
-            return _albums.foreach_steal ((name, album) => album.remove_music (music) && album.length == 0) > 0;
+            return _albums.foreach_remove ((name, album) => album.remove_music (music) && album.length == 0) > 0;
         }
 
         public Playlist to_playlist () {
-            var arr = new GenericArray<Album> (_albums.length);
-            get_sorted_albums (arr);
-            var items = new GenericArray<Music> (128);
-            foreach (var album in arr) {
-                var musics = new GenericArray<Music> (16);
-                album.get_sorted_items (musics);
-                items.extend (musics, (src) => src);
-            }
-            return new Playlist (name, "", items);
+            var playlist = new Playlist (title);
+            get_sorted_musics (playlist.items);
+            playlist.set_cover_uri ();
+            return playlist;
         }
 
         private static int compare_album (Music m1, Music m2) {
@@ -167,24 +166,93 @@ namespace G4 {
     }
 
     public class Playlist : Album {
-        public GenericArray<Music> items;
+        public GenericArray<Music> items = new GenericArray<Music> (128);
         public string list_uri;
 
-        public Playlist (string name, string uri, GenericArray<Music> items) {
-            base (items.length > 0 ? items[0] : new Music.empty ());
+        public Playlist (string name, string uri = "") {
+            base.titled (name, "");
             base.album = name;
-            base.title = name;
-            base._album_key = uri;
-            this.items = items;
-            this.list_uri = uri;
+            set_list_uri (uri);
+        }
+
+        public new uint length {
+            get {
+                return items.length;
+            }
+        }
+
+        public new bool add_music (Music music) {
+#if VALA_56_10
+            if (_musics.insert (music.uri, music)) {
+#else
+            if (insert_music (music)) {
+#endif
+                var count = items.length;
+                items.add (music);
+                items[count]._order = count;
+                return true;
+            }
+            return false;
+        }
+
+        public void clear () {
+            _musics.remove_all ();
+            items.remove_range (0, items.length);
+        }
+
+        public void copy_from (Playlist playlist) {
+            clear ();
+            extend (playlist.items);
+            set_cover_uri ();
+            set_title (playlist.title);
+        }
+
+        public void extend (GenericArray<Music> musics) {
+            items.extend (musics, (src) => src);
+        }
+
+        public new bool remove_music (Music music) {
+            base.remove_music (music);
+            return items.remove (music);
+        }
+
+        public override void get_sorted_musics (GenericArray<Music> musics) {
+            musics.extend (items, (src) => src);
+        }
+
+        public void insert_to_store (ListStore store, uint position = uint.MAX) {
+            var size = store.get_n_items ();
+            store.splice (uint.min (position, size), 0, (Object[]) items.data);
+        }
+
+        public void reset_original_order () {
             Music.original_order (items);
-            items.foreach ((music) => {
-                _musics.insert (music.uri, music);
-                if (!has_cover && music.has_cover) {
+        }
+
+        public void set_cover_uri () {
+            has_cover = false;
+            foreach (var music in items) {
+                if (music.has_cover) {
                     has_cover = true;
-                    this.uri = music.uri;
+                    uri = music.uri;
+                    break;
                 }
-            });
+            }
+            if (!has_cover && items.length > 0) {
+                has_cover = true;
+                uri = items[0].uri;
+            }
+        }
+
+        public void set_list_uri (string uri) {
+            _album_key = uri;
+            list_uri = uri;
+        }
+
+        public void set_title (string title) {
+            this.album = title;
+            this.title = title;
+            _title_key = title.collate_key_for_filename ();
         }
 
         protected override void sort (GenericArray<Music> arr) {
@@ -198,21 +266,27 @@ namespace G4 {
         private HashTable<unowned string, Artist> _artists = new HashTable<unowned string, Artist> (str_hash, str_equal);        
         private HashTable<unowned string, Playlist> _playlists = new HashTable<unowned string, Playlist> (str_hash, str_equal);        
 
-        public unowned HashTable<unowned string, Album> albums {
+        public bool empty {
             get {
-                return _albums;
+                return _albums.length == 0 && _artists.length == 0 && _playlists.length == 0;
             }
         }
 
-        public unowned HashTable<unowned string, Artist> artists {
+        public uint album_count {
             get {
-                return _artists;
+                return _albums.length;
             }
         }
 
-        public unowned HashTable<unowned string, Playlist> playlists {
+        public uint artist_count {
             get {
-                return _playlists;
+                return _artists.length;
+            }
+        }
+
+        public uint playlist_count {
+            get {
+                return _playlists.length;
             }
         }
 
@@ -220,121 +294,239 @@ namespace G4 {
             unowned string key;
             unowned var album_key = music.album_key;
             Album album;
-            if (!_albums.lookup_extended (album_key, out key, out album)) {
-                album = new Album (music);
-                album.album_artist = "";
-                _albums[album_key] = album;
+            lock (_albums) {
+                if (!_albums.lookup_extended (album_key, out key, out album)) {
+                    album = new Album (music);
+                    album.album_artist = "";
+                    _albums[album_key] = album;
+                }
             }
             var added = album.add_music (music);
 
-            unowned var album_artist = music.album_artist;
-            unowned var artist_name = album_artist.length > 0 ? album_artist : music.artist;
+            unowned var artist_name = music.artist_name;
             Artist artist;
-            if (!_artists.lookup_extended (artist_name, out key, out artist)) {
-                artist = new Artist (music, artist_name);
-                _artists[artist_name] = artist;
+            lock (_artists) {
+                if (!_artists.lookup_extended (artist_name, out key, out artist)) {
+                    artist = new Artist (music, artist_name);
+                    _artists[artist_name] = artist;
+                }
             }
             added |= artist.add_music (music);
             return added;
         }
 
-        public void add_playlist (Playlist playlist) {
-            _playlists.insert (playlist.list_uri, playlist);
+        public Playlist add_playlist (Playlist playlist) {
+            unowned string key;
+            Playlist oldlist;
+            lock (_playlists) {
+                if (_playlists.lookup_extended (playlist.list_uri, out key, out oldlist)) {
+                    if (oldlist != playlist)
+                        oldlist.copy_from (playlist);
+                    return oldlist;
+                } else {
+                    _playlists.insert (playlist.list_uri, playlist);
+                }
+            }
+            return playlist;
         }
 
-        public void get_sorted_albums (ListStore store) {
+        public Album? get_album (string key) {
+            lock (_albums) {
+                return _albums[key];
+            }
+        }
+
+        public Artist? get_artist (string key) {
+            lock (_artists) {
+                return _artists[key];
+            }
+        }
+
+        public Playlist? get_playlist (string key) {
+            lock (_playlists) {
+                return _playlists[key];
+            }
+        }
+
+        public void overwrite_albums_to (ListStore store) {
             var arr = new GenericArray<Music> (_albums.length);
-            _albums.foreach ((name, album) => arr.add (album));
+            lock (_albums) {
+                _albums.foreach ((name, album) => arr.add (album));
+            }
             arr.sort (Music.compare_by_album);
             store.splice (0, store.get_n_items (), (Object[]) arr.data);
         }
 
-        public void get_sorted_artists (ListStore store) {
+        public void overwrite_artists_to (ListStore store) {
             var arr = new GenericArray<Music> (_artists.length);
-            _artists.foreach ((name, artist) => arr.add (artist));
+            lock (_artists) {
+                _artists.foreach ((name, artist) => arr.add (artist));
+            }
             arr.sort (Music.compare_by_artist);
             store.splice (0, store.get_n_items (), (Object[]) arr.data);
         }
 
-        public void get_sorted_playlists (ListStore store) {
+        public void overwrite_playlists_to (ListStore store) {
             var arr = new GenericArray<Music> (_playlists.length);
-            _playlists.foreach ((uri, playlist) => arr.add (playlist));
+            lock (_playlists) {
+                _playlists.foreach ((uri, playlist) => arr.add (playlist));
+            }
             arr.sort (Music.compare_by_title);
             store.splice (0, store.get_n_items (), (Object[]) arr.data);
         }
 
         public void remove_music (Music music) {
             unowned var album_key = music.album_key;
-            var album = _albums[album_key];
-            if (album is Album) {
-                album.remove_music (music);
-                if (album.length == 0)
-                    _albums.steal (album_key);
-            } else {
-                _albums.foreach_steal ((name, album) => album.remove_music (music) && album.length == 0);
+            lock (_albums) {
+                var album = _albums[album_key];
+                if (album is Album) {
+                    album.remove_music (music);
+                    if (album.length == 0)
+                        _albums.remove (album_key);
+                } else {
+                    _albums.foreach_remove ((name, album) => album.remove_music (music) && album.length == 0);
+                }
             }
 
-            unowned var album_artist = music.album_artist;
-            unowned var artist_name = album_artist.length > 0 ? album_artist : music.artist;
-            var artist = _artists[artist_name];
-            if (artist is Artist) {
-                artist.remove_music (music);
-                if (artist.length == 0)
-                    _artists.remove (artist_name);
-            } else {
-                _artists.foreach_steal ((name, artist) => artist.remove_music (music) && artist.length == 0);
+            unowned var artist_name = music.artist_name;
+            lock (_artists) {
+                var artist = _artists[artist_name];
+                if (artist is Artist) {
+                    artist.remove_music (music);
+                    if (artist.length == 0)
+                        _artists.remove (artist_name);
+                } else {
+                    _artists.foreach_remove ((name, artist) => artist.remove_music (music) && artist.length == 0);
+                }
             }
         }
 
-        public void remove_uri (string uri, GenericSet<Music> removed) {
-            var prefix = uri + "/";
-            var n_removed = _albums.foreach_steal ((name, album) => {
-                album.foreach_steal ((uri, music) => {
-                    unowned var uri2 = music.uri;
-                    if (uri2.has_prefix (prefix)/*|| uri2 == uri*/) {
-                        removed.add (music);
-                        return true;
-                    }
-                    return false;
-                });
-                return album.length == 0;
-            });
-            removed.foreach ((music) => {
-                _artists.foreach_steal ((name, artist) => artist.remove_music (music) && artist.length == 0);
-            });
-            if (n_removed == 0) {
-                _playlists.remove (uri);
+        public bool remove_playlist (string key) {
+            lock (_playlists) {
+                return _playlists.remove (key);
             }
+        }
+
+        public bool remove_uri (string uri, GenericSet<Music> removed) {
+            string key;
+            Playlist oldlist;
+            lock (_playlists) {
+                if (_playlists.steal_extended (uri, out key, out oldlist)) {
+                    oldlist.clear ();
+                    return true;
+                }
+            }
+
+            var prefix = uri + "/";
+            uint n_removed = 0;
+            lock (_albums) {
+                n_removed = _albums.foreach_remove ((name, album) => {
+                    album.foreach_remove ((uri, music) => {
+                        unowned var uri2 = music.uri;
+                        if (uri2.has_prefix (prefix)/*|| uri2 == uri*/) {
+                            removed.add (music);
+                            return true;
+                        }
+                        return false;
+                    });
+                    return album.length == 0;
+                });
+            }
+            removed.foreach ((music) => {
+                lock (_artists) {
+                    _artists.foreach_remove ((name, artist) => artist.remove_music (music) && artist.length == 0);
+                }
+            });
+            return n_removed != 0;
         }
 
         public void remove_all () {
-            _albums.remove_all ();
-            _artists.remove_all ();
-            _playlists.remove_all ();
+            lock (_albums) {
+                _albums.remove_all ();
+            }
+            lock (_artists) {
+                _artists.remove_all ();
+            }
+            lock (_playlists) {
+                _playlists.remove_all ();
+            }
         }
     }
 
-    public CompareFunc<Music> get_sort_compare (uint sort_mode) {
-        switch (sort_mode) {
-            case SortMode.ALBUM:
-                return Music.compare_by_album;
-            case SortMode.ARTIST:
-                return Music.compare_by_artist;
-            case SortMode.ARTIST_ALBUM:
-                return Music.compare_by_artist_album;
-            case SortMode.TITLE:
-                return Music.compare_by_title;
-            case SortMode.RECENT:
-                return Music.compare_by_recent;
-            default:
-                return Music.compare_by_order;
+    public int find_item_in_model (ListModel model, Object? obj, int start_pos = 0) {
+        var count = model.get_n_items ();
+        for (var i = start_pos; i < count; i++) {
+            if (model.get_item (i) == obj)
+                return (int) i;
         }
+        for (var i = 0; i < start_pos; i++) {
+            if (model.get_item (i) == obj)
+                return (int) i;
+        }
+        return -1;
+    }
+
+    public bool merge_items_to_store (ListStore store, GenericArray<Music> arr, ref uint position) {
+        var first_pos = -1;
+        var removed = remove_items_from_store (store, arr, out first_pos);
+        if (position >= first_pos + removed)
+            position -= removed;
+        position = uint.min (position, store.get_n_items ());
+        store.splice (position, 0, (Object[]) arr.data);
+        return !(arr.length == 1 && arr[0] == store.get_item (first_pos));
+    }
+
+    public int remove_items_from_store (ListStore store, GenericArray<Music> arr, out int first_pos = null) {
+        var map = new GenericSet<Object?> (direct_hash, direct_equal);
+        arr.foreach ((obj) => map.add (obj));
+        var removed = 0;
+        var first_removed = -1;
+        var size = (int) store.get_n_items ();
+        if (arr.length < size / 4) {
+            for (var i = size - 1; i >= 0; i--) {
+                var obj = store.get_item (i);
+                if (map.contains (obj)) {
+                    store.remove (i);
+                    removed++;
+                    first_removed = i;
+                }
+            }
+        } else {
+            var remain = new GenericArray<Music> (size);
+            for (var i = 0; i < size; i++) {
+                var obj = store.get_item (i);
+                if (!map.contains (obj)) {
+                    remain.add ((Music) obj);
+                } else {
+                    removed++;
+                    if (first_removed == -1)
+                        first_removed = i;
+                }
+            }
+            store.splice (0, size, (Object[]) remain.data);
+        }
+        first_pos = first_removed;
+        return removed;
     }
 
     public void sort_music_array (GenericArray<Music> arr, uint sort_mode) {
         if (sort_mode == SortMode.SHUFFLE)
             Music.shuffle_order (arr);
-        arr.sort (get_sort_compare (sort_mode));
+
+        CompareFunc<Music> compare = Music.compare_by_order;
+        switch (sort_mode) {
+            case SortMode.ALBUM:
+                compare = Music.compare_by_album; break;
+            case SortMode.ARTIST:
+                compare = Music.compare_by_artist; break;
+            case SortMode.ARTIST_ALBUM:
+                compare = Music.compare_by_artist_album; break;
+            case SortMode.TITLE:
+                compare = Music.compare_by_title; break;
+            case SortMode.RECENT:
+                compare = Music.compare_by_recent; break;
+        }
+        arr.sort (compare);
     }
 
     public void sort_music_store (ListStore store, uint sort_mode) {
@@ -345,5 +537,25 @@ namespace G4 {
         }
         sort_music_array (arr, sort_mode);
         store.splice (0, count, (Object[]) arr.data);
+    }
+
+    public Playlist to_playlist (Music[] musics, string? title = null) {
+        var count = musics.length;
+        var arr = new GenericArray<Music> (count);
+        foreach (var music in musics) {
+            if (music is Artist) {
+                ((Artist) music).get_sorted_musics (arr);
+            } else if (music is Album) {
+                ((Album) music).get_sorted_musics (arr);
+            } else {
+                arr.add (music);
+            }
+        }
+        if (title == null && count == 1) {
+            title = musics[0].title;
+        }
+        var playlist = new Playlist (title ?? _("Untitled"));
+        arr.foreach ((music) => playlist.add_music (music));
+        return playlist;
     }
 }

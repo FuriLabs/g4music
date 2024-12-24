@@ -16,8 +16,11 @@ namespace G4 {
                 return _paintable;
             }
             set {
-                on_change (_paintable, value);
-                queue_draw ();
+                if (_paintable != value) {
+                    on_change (_paintable, value);
+                    _paintable = value;
+                    queue_draw ();
+                }
             }
         }
 
@@ -50,8 +53,7 @@ namespace G4 {
         }
 
         protected virtual void on_change (Gdk.Paintable? previous, Gdk.Paintable? paintable) {
-            _first_draw = _paintable != paintable;
-            _paintable = paintable;
+            _first_draw = previous != paintable;
         }
 
         protected virtual void on_snapshot (Gtk.Snapshot snapshot, double width, double height) {
@@ -60,6 +62,7 @@ namespace G4 {
     }
 
     public class RoundPaintable : BasePaintable {
+        private Gsk.RoundedRect _bounds = Gsk.RoundedRect ();
         private double _ratio = 0;
 
         public RoundPaintable (Gdk.Paintable? paintable = null, double ratio = 0.1) {
@@ -72,14 +75,19 @@ namespace G4 {
                 return _ratio;
             }
             set {
-                _ratio = value;
-                queue_draw ();
+                if (_ratio != value) {
+                    _ratio = value;
+                    queue_draw ();
+                }
             }
+        }
+
+        public bool contains (Graphene.Point point) {
+            return _bounds.contains_point (point);
         }
 
         protected override void on_snapshot (Gtk.Snapshot snapshot, double width, double height) {
             var rect = Graphene.Rect ();
-            var rounded = Gsk.RoundedRect ();
             var size = (float) double.min (width, height);
             var circle = _ratio >= 0.5;
             if (circle) // Force clip to circle
@@ -88,7 +96,7 @@ namespace G4 {
                 rect.init (0, 0, (float) width, (float) height);
 
             var radius = (float) (_ratio * size);
-            rounded.init_from_rect (rect, radius);
+            _bounds.init_from_rect (rect, radius);
 
             var saved = false;
             if (radius > 0) {
@@ -98,7 +106,7 @@ namespace G4 {
                     snapshot.save ();
                     compute_matrix (snapshot, width, height, 0, scale);
                 }
-                snapshot.push_rounded_clip (rounded);
+                snapshot.push_rounded_clip (_bounds);
             }
             base.on_snapshot (snapshot, width, height);
             if (radius > 0) {
@@ -123,8 +131,10 @@ namespace G4 {
                 return _fade;
             }
             set {
-                _fade = value;
-                queue_draw ();
+                if (_fade != value) {
+                    _fade = value;
+                    queue_draw ();
+                }
             }
         }
 
@@ -133,8 +143,10 @@ namespace G4 {
                 return _previous;
             }
             set {
-                _previous = previous;
-                queue_draw ();
+                if (_previous != value) {
+                    _previous = value;
+                    queue_draw ();
+                }
             }
         }
 
@@ -197,8 +209,10 @@ namespace G4 {
                 return _rotation;
             }
             set {
-                _rotation = value;
-                queue_draw ();
+                if (_rotation != value) {
+                    _rotation = value;
+                    queue_draw ();
+                }
             }
         }
 
@@ -207,8 +221,10 @@ namespace G4 {
                 return _scale;
             }
             set {
-                _scale = value;
-                queue_draw ();
+                if (_scale != value) {
+                    _scale = value;
+                    queue_draw ();
+                }
             }
         }
 
@@ -264,6 +280,40 @@ namespace G4 {
         return c;
     }
 
+    public Gdk.Paintable? create_blur_paintable (Gtk.Widget widget, Gdk.Paintable paintable,
+                                int size, double blur = 80, double opacity = 0.25) {
+        var snapshot = new Gtk.Snapshot ();
+        snapshot.push_opacity (opacity);
+        snapshot.push_blur (blur);
+        paintable.snapshot (snapshot, size, size);
+        snapshot.pop ();
+        snapshot.pop ();
+
+        var rect = Graphene.Rect ();
+        rect.init (0, 0, size, size);
+        Gdk.Paintable? result = null;
+        var node = snapshot.free_to_node ();
+        if (node is Gsk.RenderNode) {
+            result = widget.get_native ()?.get_renderer ()?.render_texture ((!)node, rect);
+        }
+        return result ?? snapshot.free_to_paintable (rect.size);
+    }
+
+    public Pango.Layout create_center_text_layout (Pango.Context context, string family, int width, int height, double font_size) {
+        var font = new Pango.FontDescription ();
+        font.set_absolute_size (font_size * Pango.SCALE);
+        font.set_family (family);
+        font.set_weight (Pango.Weight.BOLD);
+
+        var layout = new Pango.Layout (context);
+        layout.set_alignment (Pango.Alignment.CENTER);
+        layout.set_font_description (font);
+        layout.set_width (width * Pango.SCALE);
+        layout.set_height (height * Pango.SCALE);
+        layout.set_single_paragraph_mode (true);
+        return layout;
+    }
+
     public Gdk.Paintable? create_text_paintable (Pango.Context context, string text, int width, int height, uint color_index = 0x7fffffff) {
         var snapshot = new Gtk.Snapshot ();
         var rect = Graphene.Rect ();
@@ -281,20 +331,9 @@ namespace G4 {
             c.red = c.green = c.blue = 0.5f;
         }
 
-        var font_size = height * 0.4;
-        var font = new Pango.FontDescription ();
-        font.set_absolute_size (font_size * Pango.SCALE);
-        font.set_family ("Serif");
-        font.set_weight (Pango.Weight.BOLD);
-
-        var layout = new Pango.Layout (context);
-        layout.set_alignment (Pango.Alignment.CENTER);
-        layout.set_font_description (font);
-        layout.set_width (width * Pango.SCALE);
-        layout.set_height (height * Pango.SCALE);
-        layout.set_single_paragraph_mode (true);
-
-        Pango.Rectangle ink_rect, logic_rect;
+        var ink_rect = Pango.Rectangle ();
+        var logic_rect = Pango.Rectangle ();
+        var layout = create_center_text_layout (context, "Serif", width, height, height * 0.4);
         layout.set_text (text, text.length);
         layout.get_pixel_extents (out ink_rect, out logic_rect);
 
@@ -333,44 +372,105 @@ namespace G4 {
             c2 = BACKGROUND_COLORS[color_index * 2 + 1] & 0x00ffffffu;
         }
 
-        var font_size = height * 0.4;
-        var font = new Pango.FontDescription ();
-        font.set_absolute_size (font_size * Pango.SCALE);
-        font.set_family ("Serif");
-        font.set_weight (Pango.Weight.BOLD);
-
-        var layout = new Pango.Layout (context);
-        layout.set_font_description (font);
-        layout.set_width (width * Pango.SCALE);
-        layout.set_height (height * Pango.SCALE);
-        layout.set_single_paragraph_mode (true);
-
-        Pango.Rectangle ink_rect, logic_rect;
+        var ink_rect = Pango.Rectangle ();
+        var logic_rect = Pango.Rectangle ();
+        var layout = create_center_text_layout (context, "Serif", width, height, height * 0.4);
         layout.set_text (text, text.length);
         layout.get_pixel_extents (out ink_rect, out logic_rect);
 
-        var x = - ink_rect.x + (width - logic_rect.width) * 0.5f;
+        var x = (width - logic_rect.width) * 0.5f;
         var y = - ink_rect.y + (height + logic_rect.height) * 0.5f;
         return TEXT_SVG_FORMAT.printf (c1, c2, c1, x, y, text);
     }
 
-    public Gdk.Paintable? create_blur_paintable (Gtk.Widget widget, Gdk.Paintable paintable,
-                                int width, int height, double blur = 80, double opacity = 0.25) {
-        var snapshot = new Gtk.Snapshot ();
-        snapshot.push_opacity (opacity);
-        snapshot.push_blur (blur);
-        paintable.snapshot (snapshot, width, height);
-        snapshot.pop ();
-        snapshot.pop ();
+    public Gdk.Paintable? create_widget_paintable (Gtk.Widget widget, ref Graphene.Point point, string? title = null, int max_size = 64) {
+        float width = widget.get_width ();
+        float height = widget.get_height ();
+        var scale = (width > max_size || height > max_size) ? max_size / float.max (width, height) : 1;
+        width *= scale;
+        height *= scale;
+        point.x *= scale;
+        point.y *= scale;
 
-        var rect = Graphene.Rect ();
-        rect.init (0, 0, width, height);
-        Gdk.Paintable? result = null;
-        var node = snapshot.free_to_node ();
-        if (node is Gsk.RenderNode) {
-            result = widget.get_native ()?.get_renderer ()?.render_texture ((!)node, rect);
+        var snapshot = new Gtk.Snapshot ();
+        if (title != null) {
+            var text = (!)title;
+            var ink_rect = Pango.Rectangle ();
+            var logic_rect = Pango.Rectangle ();
+            var layout = create_center_text_layout (widget.get_pango_context (), "Sans", (int) width, (int) height, height * 0.2);
+            layout.set_text (text, text.length);
+            layout.get_pixel_extents (out ink_rect, out logic_rect);
+
+            var pt = Graphene.Point ();
+            pt.x = 0;
+            pt.y = logic_rect.height * 0.5f;
+            point.y += pt.y;
+            snapshot.translate (pt);
+            snapshot.scale (scale, scale);
+            widget.snapshot (snapshot);
+            snapshot.scale (1 / scale, 1 / scale);
+            pt.y = -pt.y;
+            snapshot.translate (pt);
+
+            pt.x = width - ink_rect.x - logic_rect.width * 0.5f;
+            pt.y = 2;
+            snapshot.translate (pt);
+
+            var rect = Graphene.Rect ();
+            rect.init (0, 0, int.max (logic_rect.width, logic_rect.height), logic_rect.height);
+            rect.offset ((width - rect.size.width) * 0.5f, 0);
+            rect.inset (-2, -2);
+            var bounds = Gsk.RoundedRect ();
+            var radius = rect.size.height * 0.5f;
+            bounds.init_from_rect (rect, radius);
+            snapshot.push_rounded_clip (bounds);
+
+#if ADW_1_6
+            var color = Adw.StyleManager.get_default ().accent_color.to_rgba ();
+#else
+            var color = Gdk.RGBA ();
+            color.red = color.green = color.blue = 0.5f;
+            color.alpha = 1;
+#endif
+            snapshot.append_color (color, rect);
+
+            color.red = color.green = color.blue = 1;
+            pt.x = 0;
+            pt.y = - ink_rect.y + (logic_rect.height - ink_rect.height) * 0.5f;
+            snapshot.translate (pt);
+            snapshot.append_layout (layout, color);
+            snapshot.pop ();
+
+            color.alpha = 0.2f;
+            color.red = color.green = color.blue = 0;
+            snapshot.append_outset_shadow (bounds, color, 1, 1, 1, 5);
+        } else {
+            snapshot.scale (scale, scale);
+            widget.snapshot (snapshot);
+            snapshot.scale (1 / scale, 1 / scale);    
         }
-        return result ?? snapshot.free_to_paintable (rect.size);
+        return snapshot.free_to_paintable (null);
+    }
+
+    public void draw_outset_shadow (Gtk.Snapshot snapshot, Graphene.Rect rect, float radius = 5) {
+        var bounds = rect;
+        bounds.inset (radius, radius);
+        var outline = Gsk.RoundedRect ();
+        outline.init_from_rect (bounds, radius);
+
+        var style = Adw.StyleManager.get_default ();
+        if (style.high_contrast) {
+            var color = Gdk.RGBA ();
+            color.alpha = 0.5f;
+            color.red = color.green = color.blue = style.dark ? 1 : 0;
+            float[] border_width = { 1, 1, 1, 1 };
+            Gdk.RGBA[] border_color = { color, color, color, color };
+            snapshot.append_border (outline, border_width, border_color);
+        } else {
+            var color = Gdk.RGBA ();
+            color.alpha = 0.2f;
+            color.red = color.green = color.blue = 0;
+            snapshot.append_outset_shadow (outline, color, 1, 1, 1, float.max (radius - 1, 0));
+        }
     }
 }
-

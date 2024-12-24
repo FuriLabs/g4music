@@ -1,602 +1,579 @@
-# Chinese translations for g4music package.
-# Copyright (C) 2022 THE g4music'S COPYRIGHT HOLDER
+# Georgian translation for g4music.
+# Copyright (C) 2024 g4music's COPYRIGHT HOLDER
 # This file is distributed under the same license as the g4music package.
-# lumingzh <lumingzh@qq.com>, 2024.
-# Nanling <neithern@outlook.com>, 2022-2024.
+# Ekaterine Papava <papava.e@gtu.ge>, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: g4music\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-11 09:34+0800\n"
-"PO-Revision-Date: 2024-10-11 09:35+0800\n"
-"Last-Translator: Nanling <neithern@outlook.com>\n"
-"Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
-"Language: zh_CN\n"
+"Project-Id-Version: g4music master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/neithern/g4music/issues\n"
+"POT-Creation-Date: 2024-10-11 01:38+0000\n"
+"PO-Revision-Date: 2024-10-18 06:28+0200\n"
+"Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
+"Language-Team: Georgian <ka@li.org>\n"
+"Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Gtranslator 46.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/app.desktop.in:3 data/app.metainfo.xml.in:4 src/application.vala:277
 #: src/main.vala:24
 msgid "Gapless"
-msgstr "无暇"
+msgstr "პაუზის გარეშე"
 
 #: data/app.desktop.in:4
 msgid "Music Player"
-msgstr "音乐播放器"
+msgstr "მედია დამკვრელი"
 
 #: data/app.desktop.in:5 data/app.metainfo.xml.in:7
 msgid "Play your music elegantly"
-msgstr "优雅地播放您的音乐"
+msgstr "დაუკარით თქვენი მუსიკა ელეგანტურად"
 
 #: data/app.desktop.in:12
 msgid "music;sound;player;media;audio;playlist;"
-msgstr ""
-"music;sound;player;media;audio;playlist;音乐;声音;播放器;媒体;音频;播放列表;"
+msgstr "music;sound;player;media;audio;playlist;"
 
 #: data/app.metainfo.xml.in:24
 msgid ""
 "Gapless (AKA: G4Music) is a light weight music player written in GTK4, "
 "focuses on large music collection."
 msgstr ""
-"无暇（又名：G4Music）是一款用 GTK4 编写的轻量级音乐播放器，专注于大型音乐收"
-"藏。"
 
 #: data/app.metainfo.xml.in:25
 msgid "Features"
-msgstr "特点"
+msgstr "მახასიათებლები"
 
 #: data/app.metainfo.xml.in:27
 msgid ""
 "Supports most music file types, Samba and any other remote protocols "
 "(depends on GIO and GStreamer)."
 msgstr ""
-"支持大多数音乐文件类型、Samba 和任何其他远程协议（取决于 GIO 和 GStreamer）。"
 
 #: data/app.metainfo.xml.in:28
 msgid ""
 "Fast loading and parsing thousands of music files in very few seconds, "
 "monitor local changes."
-msgstr "在数秒内快速加载和解析数千个音乐文件，监控本地文件变化。"
+msgstr ""
 
 #: data/app.metainfo.xml.in:29
 msgid ""
 "Low memory usage for large music collection with album covers (embedded and "
 "external), no thumbnail caches to store."
 msgstr ""
-"对于带有专辑封面（嵌入式和外置式）的大型音乐收藏，内存使用率低，无需存储缩略"
-"图缓存。"
 
 #: data/app.metainfo.xml.in:30
 msgid ""
 "Group and sorts by album/artist/title, shuffle list, full-text searching."
-msgstr "按专辑/艺术家/标题分组和排序、随机播放列表、全文搜索。"
+msgstr ""
 
 #: data/app.metainfo.xml.in:31
 msgid ""
 "Fluent adaptive user interface for different screen (Desktop, Tablet, "
 "Mobile)."
-msgstr "针对不同屏幕（台式机、平板电脑、手机）的流畅自适应用户界面。"
+msgstr ""
 
 #: data/app.metainfo.xml.in:32
 msgid "Gaussian blurred cover as background, follows GNOME light/dark mode."
-msgstr "高斯模糊封面作为背景，跟随 GNOME 亮色/暗色模式。"
+msgstr ""
 
 #: data/app.metainfo.xml.in:33
 msgid ""
 "Supports creating and editing playlists, drag cover to change order or add "
 "to another playlist."
-msgstr "支持创建和编辑播放列表，拖拽封面更改排序或添加到另一个播放列表。"
+msgstr ""
 
 #: data/app.metainfo.xml.in:34
 msgid "Supports drag and drop with other apps."
-msgstr "支持通过其它应用拖放文件。"
+msgstr ""
 
 #: data/app.metainfo.xml.in:35
 msgid "Supports audio peaks visualizer."
-msgstr "支持音频峰值可视化。"
+msgstr "აუდიოს პიკების დონის ჩვენება."
 
 #: data/app.metainfo.xml.in:36
 msgid "Supports gapless playback."
-msgstr "支持无缝播放。"
+msgstr "პაუზის-გარეშე დაკვრის ჩართვა."
 
 #: data/app.metainfo.xml.in:37
 msgid "Supports normalizing volume with ReplayGain."
-msgstr "支持通过回放增益实现音量平衡。"
+msgstr "ხმის ნორმალიზაცია ReplayGain-ით."
 
 #: data/app.metainfo.xml.in:38
 msgid "Supports specified audio sink."
-msgstr "支持指定音频输出。"
+msgstr ""
 
 #: data/app.metainfo.xml.in:39
 msgid "Supports MPRIS control."
-msgstr "支持 MPRIS 控制。"
+msgstr ""
 
 #: data/app.metainfo.xml.in:50
 msgid "Main window"
-msgstr "主窗口"
+msgstr "მთავარი ფანჯარა"
 
 #: data/app.metainfo.xml.in:54
 msgid "Albums view"
-msgstr "专辑视图"
+msgstr "ალბომების ხედი"
 
 #: data/app.metainfo.xml.in:58
 msgid "Playing view"
-msgstr "正在播放视图"
+msgstr "დაკვრის ხედი"
 
 #: data/app.metainfo.xml.in:62
 msgid "Playlist view"
-msgstr "播放列表视图"
+msgstr "დასაკრავი სიის ხედი"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "常规"
+msgstr "ზოგადი"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "显示快捷键"
+msgstr "მალსახმობების ჩვენება"
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Preferences"
-msgstr "首选项"
+msgstr "მორგება"
 
 #: src/gtk/help-overlay.ui:26
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "退出"
+msgstr "გასვლა"
 
 #: src/gtk/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Show Tags"
-msgstr "显示标签"
+msgstr "ჭდეების ჩვენება"
 
 #: src/gtk/help-overlay.ui:40
 msgctxt "shortcut window"
 msgid "Playback"
-msgstr "播放"
+msgstr "დაკვრა"
 
 #: src/gtk/help-overlay.ui:43
 msgctxt "shortcut window"
 msgid "Play/Pause"
-msgstr "播放/暂停"
+msgstr "დაკვრა/პაუზა"
 
 #: src/gtk/help-overlay.ui:49
 msgctxt "shortcut window"
 msgid "Play Next"
-msgstr "播放下一首"
+msgstr "შემდეგის დაკვრა"
 
 #: src/gtk/help-overlay.ui:55
 msgctxt "shortcut window"
 msgid "Play Previous"
-msgstr "播放上一首"
+msgstr "წინას დაკვრა"
 
 #: src/gtk/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Playlist"
-msgstr "播放列表"
+msgstr "დასაკრავი სია"
 
 #: src/gtk/help-overlay.ui:66
 msgctxt "shortcut window"
 msgid "Search"
-msgstr "搜索"
+msgstr "ძებნა"
 
 #: src/gtk/help-overlay.ui:72
 msgctxt "shortcut window"
 msgid "Toggle Sort"
-msgstr "切换排序"
+msgstr "დალაგების გადართვა"
 
 #: src/gtk/help-overlay.ui:78
 msgctxt "shortcut window"
 msgid "Reload Library"
-msgstr "重载曲库"
+msgstr "ბიბლიოთეკის თავიდან ჩატვირთვა"
 
 #: src/gtk/help-overlay.ui:84
 msgctxt "shortcut window"
 msgid "Save List"
-msgstr "保存列表"
+msgstr "სიის შენახვა"
 
 #: src/gtk/play-panel.ui:16 src/ui/music-list.vala:629
 #: src/ui/store-panel.vala:421
 msgid "Back"
-msgstr "返回"
+msgstr "უკან"
 
 #: src/gtk/preferences.ui:10
 msgid "General"
-msgstr "常规"
+msgstr "ზოგადი"
 
 #: src/gtk/preferences.ui:14
 msgid "Background blur mode"
-msgstr "背景模糊模式"
+msgstr "ფონის გაბუნდოვნების რეჟიმი"
 
 #: src/gtk/preferences.ui:20
 msgid "Compact playlist view"
-msgstr "紧凑播放列表"
+msgstr "კომპაქტური დასაკრავი სიის რეჟიმი"
 
 #: src/gtk/preferences.ui:32
 msgid "Grid view for artists/albums"
-msgstr "艺术家/专辑使用网格视图"
+msgstr "ბადის ხედი შემსრულებლებისთვის/ალბომებისთვის"
 
 #: src/gtk/preferences.ui:44
 msgid "Single click to activate item"
-msgstr "单击激活项目"
+msgstr ""
 
 #: src/gtk/preferences.ui:56 src/application.vala:425
 msgid "Keep playing after window closed"
-msgstr "关闭窗口后继续播放"
+msgstr "დაკვრის გაგრძელება ფანჯრის დახურვის შემდეგ"
 
 #: src/gtk/preferences.ui:69
 msgid "Library"
-msgstr "曲库"
+msgstr "ბიბლიოთეკა"
 
 #: src/gtk/preferences.ui:73
 msgid "Load music from folder"
-msgstr "从文件夹加载音乐"
+msgstr "მუსიკის ჩატვირთვა საქაღალდიდან"
 
 #: src/gtk/preferences.ui:85
 msgid "Monitor local file changes"
-msgstr "监控本地文件变化"
+msgstr "ლოკალური ფაილის ცვლილებების თვალყურის დევნება"
 
 #: src/gtk/preferences.ui:97
 msgid "Load thumbnails for non-local files"
-msgstr "加载非本地文件的缩略图"
+msgstr "მინიატურების ჩატვირთვა არალოკალური ფაილებისთვის"
 
 #: src/gtk/preferences.ui:98
 msgid "May cause slowdowns and excess network usage"
-msgstr "可能会导致速度减慢和过多的网络使用"
+msgstr "შეიძლება, გამოიწვიოს შენელება და გადამეტებული ქსელის დატვირთვა"
 
 #: src/gtk/preferences.ui:111
 msgid "Playback"
-msgstr "播放"
+msgstr "დაკვრა"
 
 #: src/gtk/preferences.ui:115
 msgid "Show audio peak level"
-msgstr "显示音频峰值"
+msgstr "აუდიოს პიკების დონის ჩვენება"
 
 #: src/gtk/preferences.ui:119
 msgid "Display characters"
-msgstr "显示的字符"
+msgstr "სიმბოლოების ჩვენება"
 
 #: src/gtk/preferences.ui:134
 msgid "Rotate album cover"
-msgstr "旋转专辑封面"
+msgstr "ალბომის ყდის შებრუნება"
 
 #: src/gtk/preferences.ui:146
 msgid "Enable gapless playback"
-msgstr "启用无缝续播"
+msgstr "პაუზის-გარეშე დაკვრის ჩართვა"
 
 #: src/gtk/preferences.ui:158
 msgid "Normalize volume with ReplayGain"
-msgstr "自动音量平衡"
+msgstr "ხმის ნორმალიზაცია ReplayGain-ით"
 
 #: src/gtk/preferences.ui:164
 msgid "Prefer audio sink of GStreamer"
-msgstr "首选音频输出"
+msgstr "GStreamer-ის აუდიო კოდეკის გამოყენება"
 
 #: src/gtk/store-panel.ui:22
 msgid "Main Menu"
-msgstr "主菜单"
+msgstr "მთავარი მენიუ"
 
 #: src/gtk/store-panel.ui:29 src/ui/playlist-dialog.vala:36
 msgid "Search"
-msgstr "搜索"
+msgstr "ძებნა"
 
 #: src/gtk/store-panel.ui:39
 msgid "Sort By"
-msgstr "排序"
+msgstr "დახარისხება"
 
 #: src/gtk/store-panel.ui:70
 msgid "_Color Scheme"
-msgstr "配色方案(_C)"
+msgstr "_ფერების სქემა"
 
 #: src/gtk/store-panel.ui:72
 msgid "_System"
-msgstr "系统(_S)"
+msgstr "სისტემური"
 
 #: src/gtk/store-panel.ui:77
 msgid "_Light"
-msgstr "亮色(_L)"
+msgstr "_ღია"
 
 #: src/gtk/store-panel.ui:82
 msgid "_Dark"
-msgstr "暗色(_D)"
+msgstr "_მუქი"
 
 #: src/gtk/store-panel.ui:89
 msgid "_Reload Library"
-msgstr "重载曲库(_R)"
+msgstr "ბიბლიოთეკის თავიდან ჩატვი_რთვა"
 
 #: src/gtk/store-panel.ui:93
 msgid "_Multiple Select"
-msgstr "多重选择(_M)"
+msgstr "_ერთზე მეტის არჩევა"
 
 #: src/gtk/store-panel.ui:97
 msgid "_Save List"
-msgstr "保存列表(_S)"
+msgstr "_სიის შენახვა"
 
 #: src/gtk/store-panel.ui:103
 msgid "_Preferences"
-msgstr "首选项(_P)"
+msgstr "გამართვა"
 
 #: src/gtk/store-panel.ui:107
 msgid "_Keyboard Shortcuts"
-msgstr "键盘快捷键(_K)"
+msgstr "_კლავიატურის მალსახმობები"
 
 #: src/gtk/store-panel.ui:111
 msgid "_About"
-msgstr "关于(_A)"
+msgstr "შესახებ"
 
 #: src/gtk/store-panel.ui:120 src/ui/preferences.vala:66
 msgid "Album"
-msgstr "专辑"
+msgstr "ალბომი"
 
 #: src/gtk/store-panel.ui:125
 msgid "Artist"
-msgstr "艺术家"
+msgstr "შემსრულებელი"
 
 #: src/gtk/store-panel.ui:130
 msgid "Artist/Album"
-msgstr "艺术家/专辑"
+msgstr "შემსრულებელი/ალბომი"
 
 #: src/gtk/store-panel.ui:135
 msgid "Title"
-msgstr "标题"
+msgstr "სათაური"
 
 #: src/gtk/store-panel.ui:140
 msgid "Recent"
-msgstr "最近"
+msgstr "Ბოლო"
 
 #: src/gtk/store-panel.ui:145
 msgid "Shuffle"
-msgstr "乱序"
+msgstr "შემთხვევით"
 
 #: src/action-handles.vala:114
 msgid "Image Files"
-msgstr "图像文件"
+msgstr "გამოსახულების ფაილები"
 
 #: src/action-handles.vala:121
 msgid "Export cover successfully"
-msgstr "导出封面成功"
+msgstr "ყდის გატანა წარმატებულია"
 
 #: src/action-handles.vala:121
 msgid "Export cover failed"
-msgstr "导出封面失败"
+msgstr "ყდის გატანა ჩავარდა"
 
 #: src/application.vala:350
 msgid "Save playlist failed"
-msgstr "保存播放列表失败"
+msgstr "დასაკრავი სიის შენახვა ჩავარდა"
 
 #: src/application.vala:447
 msgid "Playlist Files"
-msgstr "播放列表文件"
+msgstr "დასაკრავი სიის ფაილები"
 
 #: src/application.vala:461
 msgid "Save playlist successfully"
-msgstr "保存播放列表成功"
+msgstr "დასაკრავი სიის შენახვა წარმატებულია"
 
 #: src/application.vala:597
 msgid "Keep playing"
-msgstr "持续播放"
+msgstr "დაკვრის გაგრძელება"
 
 #: src/ui/dialogs.vala:51
 msgid "A fast, fluent, light weight music player written in GTK4."
-msgstr "一个快速、流畅、轻量的，基于 GTK4 的音乐播放器。"
+msgstr "სწრაფი, წმინდა, მსუბუქი მუსიკმკვრელი GTK4-ში."
 
 #. Translators: Replace "translator-credits" with your names, one name per line
 #: src/ui/dialogs.vala:53
 msgid "translator-credits"
-msgstr ""
-"Nanling <neithern@outlook.com>, 2022-2024.\n"
-"lumingzh <lumingzh@qq.com>, 2024."
+msgstr "თარგმანი-შესრულებულია"
 
 #: src/ui/dialogs.vala:99 src/ui/dialogs.vala:111
 msgid "No"
-msgstr "否"
+msgstr "არა"
 
 #: src/ui/dialogs.vala:100 src/ui/dialogs.vala:111
 msgid "Yes"
-msgstr "是"
+msgstr "კი"
 
 #: src/ui/music-list.vala:272
 msgid "Playlist is modified, save it?"
-msgstr "播放列表已修改，是否保存？"
+msgstr "დასაკრავი სია შეცვლილია, შეინახავთ?"
 
 #. Translators: Play this music at next position of current playing music
 #: src/ui/music-list.vala:402 src/ui/music-list.vala:418
 #: src/ui/music-widgets.vala:277 src/ui/music-widgets.vala:299
 msgid "Play at _Next"
-msgstr "插播(_N)"
+msgstr "შემდეგზე დაკვრა"
 
 #: src/ui/music-list.vala:404 src/ui/music-list.vala:420
 #: src/ui/music-widgets.vala:278 src/ui/music-widgets.vala:300
 msgid "Add to _Queue"
-msgstr "添加到队列(_Q)"
+msgstr "_რიგში ჩამატება"
 
 #: src/ui/music-list.vala:405 src/ui/music-widgets.vala:279
 #: src/ui/music-widgets.vala:301 src/ui/music-widgets.vala:320
 msgid "Add to _Playlist…"
-msgstr "添加到播放列表(_P)…"
+msgstr "_დასაკრავი სიაში დამატება…"
 
 #: src/ui/music-list.vala:406 src/ui/music-list.vala:424
 msgid "_Remove"
-msgstr "移除(_R)"
+msgstr "_წაშლა"
 
 #: src/ui/music-list.vala:425 src/ui/music-widgets.vala:286
 msgid "_Move to Trash"
-msgstr "移至回收站(_M)"
+msgstr "_სანაგვე ყუთში გადატანა"
 
 #: src/ui/music-list.vala:633
 msgid "Select All"
-msgstr "全选"
+msgstr "ყველას მონიშვნა"
 
 #: src/ui/music-list.vala:650
 msgid "Play at Next"
-msgstr "插播"
+msgstr "შემდეგზე დაკვრა"
 
 #: src/ui/music-list.vala:657
 msgid "Add to Queue"
-msgstr "添加到队列"
+msgstr "რიგში ჩამატება"
 
 #: src/ui/music-list.vala:664 src/ui/playlist-dialog.vala:19
 msgid "Add to Playlist"
-msgstr "添加到播放列表"
+msgstr "დასაკრავი სიაში დამატება"
 
 #: src/ui/music-list.vala:671
 msgid "Remove"
-msgstr "移除"
+msgstr "წაშლა"
 
 #: src/ui/music-widgets.vala:274 src/ui/music-widgets.vala:296
 #: src/ui/store-panel.vala:429
 msgid "Play"
-msgstr "播放"
+msgstr "თამაში"
 
 #: src/ui/music-widgets.vala:275 src/ui/music-widgets.vala:297
 msgid "_Random Play"
-msgstr "随机播放(_R)"
+msgstr "შემთხვევითი დაკვ_რა"
 
 #: src/ui/music-widgets.vala:285
 msgid "Show List _File"
-msgstr "显示列表文件(_F)"
+msgstr "სიის _ფაილის ჩვენება"
 
 #: src/ui/music-widgets.vala:308 src/ui/play-panel.vala:60
 msgid "Search Title"
-msgstr "搜索标题"
+msgstr "სათაურის ძებნა"
 
 #: src/ui/music-widgets.vala:309 src/ui/play-panel.vala:58
 msgid "Search Album"
-msgstr "搜索专辑"
+msgstr "ალბომის ძებნა"
 
 #: src/ui/music-widgets.vala:310 src/ui/play-panel.vala:59
 msgid "Search Artist"
-msgstr "搜索艺术家"
+msgstr "შემსრულებლის ძებნა"
 
 #: src/ui/music-widgets.vala:314
 msgid "Show Cover _File"
-msgstr "显示封面文件(_F)"
+msgstr "ყდის _ფაილის ჩვენება"
 
 #: src/ui/music-widgets.vala:316
 msgid "_Export Cover"
-msgstr "导出封面(_E)"
+msgstr "ყდის _ფაილის გატანა"
 
 #: src/ui/music-widgets.vala:317
 msgid "Show _Tags…"
-msgstr "显示标签(_T)…"
+msgstr "ჭ_დეების ჩვენება…"
 
 #: src/ui/music-widgets.vala:318
 msgid "Show Music _File"
-msgstr "显示音乐文件(_F)"
+msgstr "მ_უსიკის ფაილის ჩვენება"
 
 #. Translators: single loop the current music
 #: src/ui/play-bar.vala:72
 msgid "Single Loop"
-msgstr "单曲循环"
+msgstr "ერთხელ გამეორება"
 
 #: src/ui/play-bar.vala:82
 msgid "Play Previous"
-msgstr "播放上一首"
+msgstr "წინას დაკვრა"
 
 #. media-playback-pause-symbolic
 #: src/ui/play-bar.vala:88
 msgid "Play/Pause"
-msgstr "播放/暂停"
+msgstr "დაკვრა/პაუზა"
 
 #: src/ui/play-bar.vala:95
 msgid "Play Next"
-msgstr "播放下一首"
+msgstr "შემდეგის დაკვრა"
 
 #: src/ui/play-panel.vala:255
 msgid ""
 "Drag and drop music files here,\n"
 "or change music location: "
 msgstr ""
-"拖放音乐文件到这里，\n"
-"或者修改曲库的位置："
+"გადმოათრიეთ და დაყარეთ მუსიკის ფაილები აქ,\n"
+"ან შეცვალეთ მუსიკის მდებარეობა: "
 
 #: src/ui/playlist-dialog.vala:24
 msgid "New Playlist"
-msgstr "新建播放列表"
+msgstr "ახალი დასაკრავი სია"
 
 #: src/ui/playlist-dialog.vala:98 src/ui/store-panel.vala:692
 #, c-format
 msgid "No playlist found in %s"
-msgstr "在 %s 中未找到播放列表"
+msgstr ""
 
 #: src/ui/preferences.vala:44 src/ui/preferences.vala:66
 msgid "Never"
-msgstr "从不"
+msgstr "არასდროს"
 
 #: src/ui/preferences.vala:44
 msgid "Always"
-msgstr "总是"
+msgstr "ყოველთვის"
 
 #: src/ui/preferences.vala:44
 msgid "Art Only"
-msgstr "仅封面"
+msgstr "მხოლოდ ყდა"
 
 #: src/ui/preferences.vala:66
 msgid "Track"
-msgstr "曲目"
+msgstr "ტრეკი"
 
 #: src/ui/store-panel.vala:84
 msgid "Playing"
-msgstr "正在播放"
+msgstr "მიმდინარეობს დაკვრა"
 
 #: src/ui/store-panel.vala:89
 msgid "Artists"
-msgstr "艺术家"
+msgstr "შემსრულებლები"
 
 #: src/ui/store-panel.vala:94
 msgid "Albums"
-msgstr "专辑"
+msgstr "ალბომები"
 
 #: src/ui/store-panel.vala:99
 msgid "Playlists"
-msgstr "播放列表"
+msgstr "დასაკრავი სიები"
 
 #: src/ui/taglist-dialog.vala:125
 msgid "Copy"
-msgstr "复制"
+msgstr "კოპირება"
 
 #. Translators: Current volume percent: 0~100%
 #: src/ui/volume-button.vala:33
 #, c-format
 msgid "Volume %d%%"
-msgstr "音量 %d%%"
+msgstr "ხმის სიმძლავრე %d%%"
 
 #: src/ui/window.vala:112
 msgid "Show"
-msgstr "显示"
+msgstr "ჩვენება"
 
 #: src/utils/music.vala:2
 msgid "Unknown Album"
-msgstr "未知专辑"
+msgstr "უცნობი ალბომი"
 
 #: src/utils/music.vala:3
 msgid "Unknown Artist"
-msgstr "未知艺术家"
+msgstr "უცნობი შემსრულებელი"
 
 #~ msgid "Play music"
-#~ msgstr "播放音乐"
-
-#~ msgid "Close"
-#~ msgstr "关闭"
-
-#~ msgid "Nanling"
-#~ msgstr "Nanling"
-
-#~ msgid "Drag-drop from GNOME Files, showing music in Files."
-#~ msgstr "从 GNOME 文件管理器拖放音乐文件，显示文件管理器中的音乐文件。"
+#~ msgstr "მუსიკის დაკვრა"
 
 #~ msgid "Prefer dark theme"
-#~ msgstr "首选深色主题"
+#~ msgstr "მუქი თემის არჩევანი"
 
-#, fuzzy, c-format
-#~ msgid "No playlist found in: %s"
-#~ msgstr "未找到播放列表"
-
-#~ msgid "_Add to Playlist…"
-#~ msgstr "添加到播放列表(_A)…"
+#~ msgid "G4Music"
+#~ msgstr "G4Music"

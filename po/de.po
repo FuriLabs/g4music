@@ -1,14 +1,14 @@
 # GERMAN TRANSLATION FOR G4MUSIC.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Jürgen Benvenuti <gastornis@posteo.org>, 2022, 2023.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2022-2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: g4music\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/neithern/g4music/-/issues\n"
-"POT-Creation-Date: 2023-08-19 04:11+0000\n"
-"PO-Revision-Date: 2023-08-19 08:46+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/neithern/g4music/issues\n"
+"POT-Creation-Date: 2024-10-14 16:49+0000\n"
+"PO-Revision-Date: 2024-10-28 10:35+0100\n"
 "Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -16,25 +16,132 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.4.4\n"
 
-#: data/app.desktop.in:3 src/application.vala:232 src/main.vala:24
-msgid "G4Music"
-msgstr "G4Music"
+#: data/app.desktop.in:3 data/app.metainfo.xml.in:4 src/application.vala:271
+#: src/main.vala:24
+msgid "Gapless"
+msgstr "Gapless"
 
 #: data/app.desktop.in:4
 msgid "Music Player"
 msgstr "Musikwiedergabe"
 
-#: data/app.desktop.in:5
-msgid "Play music"
-msgstr "Musik wiedergeben"
+#: data/app.desktop.in:5 data/app.metainfo.xml.in:7
+msgid "Play your music elegantly"
+msgstr "Geben Sie Ihre Musik auf elegante Weise wieder"
 
 #: data/app.desktop.in:12
 msgid "music;sound;player;media;audio;playlist;"
 msgstr ""
-"music;sound;player;media;audio;playlist;Musik;Klang;Wiedergabe;Medien;"
-"Audio;Wiedergabeliste;"
+"music;sound;player;media;audio;playlist;Musik;Klang;Wiedergabe;Medien;Audio;"
+"Wiedergabeliste;"
+
+#: data/app.metainfo.xml.in:24
+msgid ""
+"Gapless (AKA: G4Music) is a light weight music player written in GTK4, "
+"focuses on large music collection."
+msgstr ""
+"Gapless (alias »G4Music«) ist eine leichtgewichtige Musikwiedergabe, "
+"geschrieben in GTK, die sich auf große Musiksammlungen konzentriert."
+
+#: data/app.metainfo.xml.in:25
+msgid "Features"
+msgstr "Funktionen"
+
+#: data/app.metainfo.xml.in:27
+msgid ""
+"Supports most music file types, Samba and any other remote protocols "
+"(depends on GIO and GStreamer)."
+msgstr ""
+"Unterstützt die meisten Musikdateitypen, Samba und alle anderen "
+"Fernzugriffsprotokolle (abhängig von GIO und GStreamer)."
+
+#: data/app.metainfo.xml.in:28
+msgid ""
+"Fast loading and parsing thousands of music files in very few seconds, "
+"monitor local changes."
+msgstr ""
+"Schnelles Laden und Verarbeiten von Tausenden von Musikdateien in wenigen "
+"Sekunden, Überwachen von lokalen Änderungen."
+
+#: data/app.metainfo.xml.in:29
+msgid ""
+"Low memory usage for large music collection with album covers (embedded and "
+"external), no thumbnail caches to store."
+msgstr ""
+"Geringer Speicherbedarf für große Musiksammlungen mit Albumbildern "
+"(eingebettet und extern), kein Zwischenspeichern von Vorschaubildern."
+
+#: data/app.metainfo.xml.in:30
+msgid ""
+"Group and sorts by album/artist/title, shuffle list, full-text searching."
+msgstr ""
+"Gruppieren und sortieren nach Album/Interpret/Titel, Liste durchmischen, "
+"Volltextsuche."
+
+#: data/app.metainfo.xml.in:31
+msgid ""
+"Fluent adaptive user interface for different screen (Desktop, Tablet, "
+"Mobile)."
+msgstr ""
+"Geschmeidige adaptive Benutzeroberfläche für unterschiedliche Bildschirme "
+"(Desktop, Tablet, mobiles Gerät)."
+
+#: data/app.metainfo.xml.in:32
+msgid "Gaussian blurred cover as background, follows GNOME light/dark mode."
+msgstr ""
+"Gauß-weichgezeichnete Albumbilder als Hintergrund, folgt dem hellen bzw. "
+"dunklen GNOME-Modus."
+
+#: data/app.metainfo.xml.in:33
+msgid ""
+"Supports creating and editing playlists, drag cover to change order or add "
+"to another playlist."
+msgstr ""
+"Unterstützt das Erstellen und Bearbeiten von Wiedergabelisten; ziehen Sie "
+"das Albumbild, um die Reihenfolge zu ändern oder zu einer anderen "
+"Wiedergabeliste hinzuzufügen."
+
+#: data/app.metainfo.xml.in:34
+msgid "Supports drag and drop with other apps."
+msgstr "Unterstützt Ziehen und Ablegen mit anderen Anwendungen."
+
+#: data/app.metainfo.xml.in:35
+msgid "Supports audio peaks visualizer."
+msgstr "Unterstützt die Visualisierung von Audiospitzenpegeln."
+
+#: data/app.metainfo.xml.in:36
+msgid "Supports gapless playback."
+msgstr "Unterstützt lückenlose Wiedergabe."
+
+#: data/app.metainfo.xml.in:37
+msgid "Supports normalizing volume with ReplayGain."
+msgstr "Unterstützt die Normalisierung der Lautstärke durch ReplayGain."
+
+#: data/app.metainfo.xml.in:38
+msgid "Supports specified audio sink."
+msgstr "Unterstützt angegebenen Audio-Ausgang."
+
+#: data/app.metainfo.xml.in:39
+msgid "Supports MPRIS control."
+msgstr "Unterstützt MPRIS-Steuerung."
+
+#: data/app.metainfo.xml.in:50
+msgid "Main window"
+msgstr "Hauptfenster"
+
+#: data/app.metainfo.xml.in:54
+msgid "Albums view"
+msgstr "Albenansicht"
+
+#: data/app.metainfo.xml.in:58
+msgid "Playing view"
+msgstr "Wiedergabeansicht"
+
+#: data/app.metainfo.xml.in:62
+msgid "Playlist view"
+msgstr "Wiedergabelistenansicht"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
@@ -56,47 +163,58 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Beenden"
 
-#: src/gtk/help-overlay.ui:34
+#: src/gtk/help-overlay.ui:32
+msgctxt "shortcut window"
+msgid "Show Tags"
+msgstr "Schlagwörter anzeigen"
+
+#: src/gtk/help-overlay.ui:40
 msgctxt "shortcut window"
 msgid "Playback"
 msgstr "Wiedergabe"
 
-#: src/gtk/help-overlay.ui:37
+#: src/gtk/help-overlay.ui:43
 msgctxt "shortcut window"
 msgid "Play/Pause"
 msgstr "Wiedergabe/Pause"
 
-#: src/gtk/help-overlay.ui:43
+#: src/gtk/help-overlay.ui:49
 msgctxt "shortcut window"
 msgid "Play Next"
 msgstr "Den nächsten Titel wiedergeben"
 
-#: src/gtk/help-overlay.ui:49
+#: src/gtk/help-overlay.ui:55
 msgctxt "shortcut window"
 msgid "Play Previous"
-msgstr "Den vorigen Titel wiedergeben"
+msgstr "Den vorherigen Titel wiedergeben"
 
-#: src/gtk/help-overlay.ui:57
+#: src/gtk/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Playlist"
 msgstr "Wiedergabeliste"
 
-#: src/gtk/help-overlay.ui:60
+#: src/gtk/help-overlay.ui:66
 msgctxt "shortcut window"
 msgid "Search"
 msgstr "Suchen"
 
-#: src/gtk/help-overlay.ui:66
+#: src/gtk/help-overlay.ui:72
 msgctxt "shortcut window"
 msgid "Toggle Sort"
 msgstr "Sortiermodus umschalten"
 
-#: src/gtk/help-overlay.ui:72
+#: src/gtk/help-overlay.ui:78
 msgctxt "shortcut window"
 msgid "Reload Library"
 msgstr "Bibliothek neu laden"
 
-#: src/gtk/play-panel.ui:16 src/ui/store-panel.vala:340
+#: src/gtk/help-overlay.ui:84
+msgctxt "shortcut window"
+msgid "Save List"
+msgstr "Liste speichern"
+
+#: src/gtk/play-panel.ui:16 src/ui/music-list.vala:629
+#: src/ui/store-panel.vala:420
 msgid "Back"
 msgstr "Zurück"
 
@@ -105,22 +223,22 @@ msgid "General"
 msgstr "Allgemein"
 
 #: src/gtk/preferences.ui:14
-msgid "Prefer dark theme"
-msgstr "Dunkles Thema verwenden"
-
-#: src/gtk/preferences.ui:26
 msgid "Background blur mode"
 msgstr "Hintergrund weichzeichnen"
 
-#: src/gtk/preferences.ui:32
+#: src/gtk/preferences.ui:20
 msgid "Compact playlist view"
 msgstr "Kompaktansicht der Wiedergabeliste"
 
-#: src/gtk/preferences.ui:44
+#: src/gtk/preferences.ui:32
 msgid "Grid view for artists/albums"
 msgstr "Rasteransicht für Interpreten/Alben"
 
-#: src/gtk/preferences.ui:56 src/application.vala:432
+#: src/gtk/preferences.ui:44
+msgid "Single click to activate item"
+msgstr "Einfacher Klick zum Aktivieren des Elements"
+
+#: src/gtk/preferences.ui:56 src/application.vala:419
 msgid "Keep playing after window closed"
 msgstr "Musik weiterspielen nach dem Schließen des Fensters"
 
@@ -176,127 +294,233 @@ msgstr "Bevorzugter GStreamer-Audio-Ausgang"
 msgid "Main Menu"
 msgstr "Hauptmenü"
 
-#: src/gtk/store-panel.ui:28
-msgid "Sort By"
-msgstr "Sortieren nach"
-
-#: src/gtk/store-panel.ui:35
+#: src/gtk/store-panel.ui:29 src/ui/playlist-dialog.vala:36
 msgid "Search"
 msgstr "Suchen"
 
-#: src/gtk/store-panel.ui:73
+#: src/gtk/store-panel.ui:39
+msgid "Sort By"
+msgstr "Sortieren nach"
+
+#: src/gtk/store-panel.ui:70
+msgid "_Color Scheme"
+msgstr "_Farbschema"
+
+#: src/gtk/store-panel.ui:72
+msgid "_System"
+msgstr "_System"
+
+#: src/gtk/store-panel.ui:77
+msgid "_Light"
+msgstr "_Hell"
+
+#: src/gtk/store-panel.ui:82
+msgid "_Dark"
+msgstr "_Dunkel"
+
+#: src/gtk/store-panel.ui:89
 msgid "_Reload Library"
 msgstr "Bibliothek neu _laden"
 
-#: src/gtk/store-panel.ui:79
+#: src/gtk/store-panel.ui:93
+msgid "_Multiple Select"
+msgstr "_Mehrere auswählen"
+
+#: src/gtk/store-panel.ui:97
+msgid "_Save List"
+msgstr "Liste _speichern"
+
+#: src/gtk/store-panel.ui:103
 msgid "_Preferences"
 msgstr "_Einstellungen"
 
-#: src/gtk/store-panel.ui:83
+#: src/gtk/store-panel.ui:107
 msgid "_Keyboard Shortcuts"
 msgstr "_Tastenkürzel"
 
-#: src/gtk/store-panel.ui:87
+#: src/gtk/store-panel.ui:111
 msgid "_About"
 msgstr "_Info"
 
-#: src/gtk/store-panel.ui:96 src/ui/preferences.vala:67
+#: src/gtk/store-panel.ui:120 src/ui/preferences.vala:66
 msgid "Album"
 msgstr "Album"
 
-#: src/gtk/store-panel.ui:101
+#: src/gtk/store-panel.ui:125
 msgid "Artist"
 msgstr "Interpret"
 
-#: src/gtk/store-panel.ui:106
+#: src/gtk/store-panel.ui:130
 msgid "Artist/Album"
 msgstr "Interpret/Album"
 
-#: src/gtk/store-panel.ui:111
+#: src/gtk/store-panel.ui:135
 msgid "Title"
 msgstr "Titel"
 
-#: src/gtk/store-panel.ui:116
+#: src/gtk/store-panel.ui:140
 msgid "Recent"
 msgstr "Zuletzt gespielt"
 
-#: src/gtk/store-panel.ui:121
+#: src/gtk/store-panel.ui:145
 msgid "Shuffle"
 msgstr "Durchmischen"
 
-#: src/action-handles.vala:184
+#: src/action-handles.vala:114
+msgid "Image Files"
+msgstr "Bilddateien"
+
+#: src/action-handles.vala:121
+msgid "Export cover successfully"
+msgstr "Exportieren des Albumbilds erfolgreich"
+
+#: src/action-handles.vala:121
+msgid "Export cover failed"
+msgstr "Exportieren des Albumbilds fehlgeschlagen"
+
+#: src/application.vala:344
+msgid "Save playlist failed"
+msgstr "Speichern der Wiedergabeliste fehlgeschlagen"
+
+#: src/application.vala:441
+msgid "Playlist Files"
+msgstr "Wiedergabelistendateien"
+
+#: src/application.vala:455
+msgid "Save playlist successfully"
+msgstr "Speichern der Wiedergabeliste erfolgreich"
+
+#: src/application.vala:591
+msgid "Keep playing"
+msgstr "Musik weiterspielen"
+
+#: src/ui/dialogs.vala:51
 msgid "A fast, fluent, light weight music player written in GTK4."
 msgstr ""
 "Eine schnelle, geschmeidige, leichtgewichtige Musikwiedergabe, geschrieben "
 "in GTK4."
 
 #. Translators: Replace "translator-credits" with your names, one name per line
-#: src/action-handles.vala:186
+#: src/ui/dialogs.vala:53
 msgid "translator-credits"
-msgstr "Jürgen Benvenuti <gastornis@posteo.org>, 2022, 2023"
+msgstr "Jürgen Benvenuti <gastornis@posteo.org>, 2022-2024"
 
-#: src/application.vala:613
-msgid "Keep playing"
-msgstr "Musik weiterspielen"
+#: src/ui/dialogs.vala:99 src/ui/dialogs.vala:111
+msgid "No"
+msgstr "Nein"
+
+#: src/ui/dialogs.vala:100 src/ui/dialogs.vala:111
+msgid "Yes"
+msgstr "Ja"
+
+#: src/ui/music-list.vala:272
+msgid "Playlist is modified, save it?"
+msgstr "Wiedergabeliste wurde geändert, soll sie gespeichert werden?"
 
 #. Translators: Play this music at next position of current playing music
-#: src/ui/music-widgets.vala:252 src/ui/music-widgets.vala:293
-#: src/ui/music-widgets.vala:303
+#: src/ui/music-list.vala:402 src/ui/music-list.vala:418
+#: src/ui/music-widgets.vala:277 src/ui/music-widgets.vala:299
+msgid "Play at _Next"
+msgstr "Als _Nächstes wiedergeben"
+
+#: src/ui/music-list.vala:404 src/ui/music-list.vala:420
+#: src/ui/music-widgets.vala:278 src/ui/music-widgets.vala:300
+msgid "Add to _Queue"
+msgstr "Zur _Warteschlange hinzufügen"
+
+#: src/ui/music-list.vala:405 src/ui/music-widgets.vala:279
+#: src/ui/music-widgets.vala:301 src/ui/music-widgets.vala:320
+msgid "Add to _Playlist…"
+msgstr "Zur Wieder_gabeliste hinzufügen …"
+
+#: src/ui/music-list.vala:406 src/ui/music-list.vala:424
+msgid "_Remove"
+msgstr "_Entfernen"
+
+#: src/ui/music-list.vala:425 src/ui/music-widgets.vala:286
+msgid "_Move to Trash"
+msgstr "In den _Papierkorb verschieben"
+
+#: src/ui/music-list.vala:633
+msgid "Select All"
+msgstr "Alle auswählen"
+
+#: src/ui/music-list.vala:650
 msgid "Play at Next"
 msgstr "Als Nächstes wiedergeben"
 
-#: src/ui/music-widgets.vala:253 src/ui/music-widgets.vala:292
-#: src/ui/music-widgets.vala:302 src/ui/store-panel.vala:345
+#: src/ui/music-list.vala:657
+msgid "Add to Queue"
+msgstr "Zur Warteschlange hinzufügen"
+
+#: src/ui/music-list.vala:664 src/ui/playlist-dialog.vala:19
+msgid "Add to Playlist"
+msgstr "Zur Wiedergabeliste hinzufügen"
+
+#: src/ui/music-list.vala:671
+msgid "Remove"
+msgstr "Entfernen"
+
+#: src/ui/music-widgets.vala:274 src/ui/music-widgets.vala:296
+#: src/ui/store-panel.vala:428
 msgid "Play"
 msgstr "Wiedergeben"
 
-#: src/ui/music-widgets.vala:256 src/ui/play-panel.vala:237
-msgid "Show _Cover File"
-msgstr "Album_bild-Datei anzeigen"
+#: src/ui/music-widgets.vala:275 src/ui/music-widgets.vala:297
+msgid "_Random Play"
+msgstr "_Zufällige Wiedergabe"
 
-#: src/ui/music-widgets.vala:258 src/ui/play-panel.vala:239
-msgid "_Export Cover"
-msgstr "Albumbild expo_rtieren"
+#: src/ui/music-widgets.vala:285
+msgid "Show List _File"
+msgstr "Listen_datei anzeigen"
 
-#: src/ui/music-widgets.vala:295
-msgid "Show List File"
-msgstr "Listendatei anzeigen"
-
-#: src/ui/music-widgets.vala:309 src/ui/play-panel.vala:56
+#: src/ui/music-widgets.vala:308 src/ui/play-panel.vala:63
 msgid "Search Title"
 msgstr "Titel suchen"
 
-#: src/ui/music-widgets.vala:310 src/ui/play-panel.vala:54
+#: src/ui/music-widgets.vala:309 src/ui/play-panel.vala:61
 msgid "Search Album"
 msgstr "Album suchen"
 
-#: src/ui/music-widgets.vala:311 src/ui/play-panel.vala:55
+#: src/ui/music-widgets.vala:310 src/ui/play-panel.vala:62
 msgid "Search Artist"
 msgstr "Interpret suchen"
 
-#: src/ui/music-widgets.vala:312
-msgid "_Show Music File"
-msgstr "Musikdatei _anzeigen"
+#: src/ui/music-widgets.vala:314
+msgid "Show Cover _File"
+msgstr "Albumbild-_Datei anzeigen"
+
+#: src/ui/music-widgets.vala:316
+msgid "_Export Cover"
+msgstr "Albumbild expo_rtieren"
+
+#: src/ui/music-widgets.vala:317
+msgid "Show _Tags…"
+msgstr "_Schlagwörter anzeigen …"
+
+#: src/ui/music-widgets.vala:318
+msgid "Show Music _File"
+msgstr "Musik_datei anzeigen"
 
 #. Translators: single loop the current music
-#: src/ui/play-bar.vala:74
+#: src/ui/play-bar.vala:72
 msgid "Single Loop"
 msgstr "Einfachschleife"
 
-#: src/ui/play-bar.vala:84
+#: src/ui/play-bar.vala:82
 msgid "Play Previous"
-msgstr "Den vorigen Titel wiedergeben"
+msgstr "Den vorherigen Titel wiedergeben"
 
 #. media-playback-pause-symbolic
-#: src/ui/play-bar.vala:90
+#: src/ui/play-bar.vala:88
 msgid "Play/Pause"
 msgstr "Wiedergabe/Pause"
 
-#: src/ui/play-bar.vala:97
+#: src/ui/play-bar.vala:95
 msgid "Play Next"
 msgstr "Den nächsten Titel wiedergeben"
 
-#: src/ui/play-panel.vala:280
+#: src/ui/play-panel.vala:258
 msgid ""
 "Drag and drop music files here,\n"
 "or change music location: "
@@ -304,43 +528,60 @@ msgstr ""
 "Musikdateien hierher ziehen und ablegen,\n"
 "oder den Musikspeicherort ändern: "
 
-#: src/ui/preferences.vala:46 src/ui/preferences.vala:67
+#: src/ui/playlist-dialog.vala:24
+msgid "New Playlist"
+msgstr "Neue Wiedergabeliste"
+
+#: src/ui/playlist-dialog.vala:98 src/ui/store-panel.vala:697
+#, c-format
+msgid "No playlist found in %s"
+msgstr "Keine Wiedergabeliste gefunden in %s"
+
+#: src/ui/preferences.vala:44 src/ui/preferences.vala:66
 msgid "Never"
 msgstr "Nie"
 
-#: src/ui/preferences.vala:46
+#: src/ui/preferences.vala:44
 msgid "Always"
 msgstr "Immer"
 
-#: src/ui/preferences.vala:46
+#: src/ui/preferences.vala:44
 msgid "Art Only"
 msgstr "Nur mit Albumbild"
 
-#: src/ui/preferences.vala:67
+#: src/ui/preferences.vala:66
 msgid "Track"
 msgstr "Titel"
 
-#: src/ui/store-panel.vala:74
+#: src/ui/store-panel.vala:84
 msgid "Playing"
 msgstr "Aktuelle Wiedergabe"
 
-#: src/ui/store-panel.vala:79
+#: src/ui/store-panel.vala:89
 msgid "Artists"
 msgstr "Interpreten"
 
-#: src/ui/store-panel.vala:84
+#: src/ui/store-panel.vala:94
 msgid "Albums"
 msgstr "Alben"
 
-#: src/ui/store-panel.vala:374
+#: src/ui/store-panel.vala:99
 msgid "Playlists"
 msgstr "Wiedergabelisten"
+
+#: src/ui/taglist-dialog.vala:125
+msgid "Copy"
+msgstr "Kopieren"
 
 #. Translators: Current volume percent: 0~100%
 #: src/ui/volume-button.vala:33
 #, c-format
 msgid "Volume %d%%"
 msgstr "Lautstärke %d%%"
+
+#: src/ui/window.vala:119
+msgid "Show"
+msgstr "Anzeigen"
 
 #: src/utils/music.vala:2
 msgid "Unknown Album"
@@ -349,6 +590,28 @@ msgstr "Unbekanntes Album"
 #: src/utils/music.vala:3
 msgid "Unknown Artist"
 msgstr "Unbekannter Interpret"
+
+#~ msgid "Play music"
+#~ msgstr "Musik wiedergeben"
+
+#~ msgid "Nanling"
+#~ msgstr "Nanling"
+
+#~ msgid "Close"
+#~ msgstr "Schließen"
+
+#~ msgid "Drag-drop from GNOME Files, showing music in Files."
+#~ msgstr ""
+#~ "Ziehen und ablegen aus GNOME-»Dateien«, zeigt Musik in »Dateien« an."
+
+#~ msgid "Prefer dark theme"
+#~ msgstr "Dunkles Thema verwenden"
+
+#~ msgid "_Add to Playlist…"
+#~ msgstr "Zur Wiedergabeliste _hinzufügen …"
+
+#~ msgid "G4Music"
+#~ msgstr "G4Music"
 
 #~ msgid "Repeat Music"
 #~ msgstr "Den Titel wiederholen"
